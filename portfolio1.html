@@ -1,0 +1,1995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hanin Bchir - Engineering & Creative Innovation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Light Mode Colors */
+            --bg-primary: #faf8ff;
+            --bg-secondary: #f0ebff;
+            --bg-card: #ffffff;
+            --accent-primary: #c084fc;
+            --accent-secondary: #fb7185;
+            --accent-tertiary: #60a5fa;
+            --accent-warm: #fbbf24;
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --border-subtle: rgba(192, 132, 252, 0.2);
+            --glow-purple: rgba(192, 132, 252, 0.3);
+            --glow-pink: rgba(251, 113, 133, 0.3);
+            --shadow-soft: rgba(192, 132, 252, 0.15);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode Colors */
+            --bg-primary: #0f0a1e;
+            --bg-secondary: #1a0f2e;
+            --bg-card: #251939;
+            --accent-primary: #c084fc;
+            --accent-secondary: #fb7185;
+            --accent-tertiary: #60a5fa;
+            --accent-warm: #fbbf24;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-subtle: rgba(192, 132, 252, 0.3);
+            --glow-purple: rgba(192, 132, 252, 0.5);
+            --glow-pink: rgba(251, 113, 133, 0.5);
+            --shadow-soft: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            border: 3px solid var(--bg-card);
+            box-shadow: 0 10px 40px rgba(192, 132, 252, 0.4);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: pulse-toggle 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-toggle {
+            0%, 100% {
+                box-shadow: 0 10px 40px rgba(192, 132, 252, 0.4);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 15px 50px rgba(251, 113, 133, 0.6);
+                transform: scale(1.05);
+            }
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.15) rotate(180deg);
+            box-shadow: 0 15px 50px rgba(192, 132, 252, 0.6);
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            z-index: -1;
+            animation: rotate-gradient 4s linear infinite;
+        }
+
+        .theme-icon {
+            font-size: 2rem;
+            transition: transform 0.4s ease;
+        }
+
+        .theme-toggle:hover .theme-icon {
+            transform: rotate(20deg) scale(1.1);
+        }
+
+        /* Responsive Theme Toggle */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                width: 60px;
+                height: 60px;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+
+            .theme-icon {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 1.2rem 0;
+            z-index: 1000;
+            animation: slideDown 0.6s ease;
+            box-shadow: 0 4px 20px rgba(192, 132, 252, 0.1);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        [data-theme="dark"] nav {
+            background: rgba(15, 10, 30, 0.95);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+            animation: gradientShift 3s ease infinite, float-subtle 3s ease-in-out infinite;
+        }
+
+        @keyframes float-subtle {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-3px); }
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(15deg); }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, var(--glow-purple) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, var(--glow-pink) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(96, 165, 250, 0.15) 0%, transparent 60%);
+            opacity: 0.4;
+            animation: pulse-bg 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { 
+                opacity: 0.4;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.6;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Floating particles animation */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(circle, var(--accent-primary) 1px, transparent 1px),
+                radial-gradient(circle, var(--accent-secondary) 1px, transparent 1px),
+                radial-gradient(circle, var(--accent-tertiary) 1px, transparent 1px);
+            background-size: 50px 50px, 80px 80px, 100px 100px;
+            background-position: 0 0, 40px 40px, 70px 70px;
+            opacity: 0.2;
+            animation: float-particles 25s linear infinite;
+        }
+
+        @keyframes float-particles {
+            0% { transform: translateY(0px) translateX(0px); }
+            100% { transform: translateY(-100px) translateX(50px); }
+        }
+
+
+
+        .hero-content {
+            max-width: 1400px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-image-container {
+            position: relative;
+            animation: fadeInLeft 1s ease;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 500px;
+            aspect-ratio: 3/4;
+            background: var(--bg-card);
+            border-radius: 20px;
+            border: 3px solid transparent;
+            background-clip: padding-box;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 
+                0 20px 60px rgba(192, 132, 252, 0.25),
+                0 10px 30px rgba(251, 113, 133, 0.15);
+            animation: borderGlow 4s ease-in-out infinite, float-image 6s ease-in-out infinite;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+            border-radius: 20px;
+            z-index: -1;
+            animation: rotate-gradient 8s linear infinite;
+        }
+
+        @keyframes rotate-gradient {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes float-image {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { 
+                box-shadow: 
+                    0 20px 60px rgba(192, 132, 252, 0.25),
+                    0 10px 30px rgba(251, 113, 133, 0.15);
+            }
+            50% { 
+                box-shadow: 
+                    0 25px 70px rgba(251, 113, 133, 0.35),
+                    0 15px 40px rgba(192, 132, 252, 0.25);
+            }
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .hero-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, transparent 60%);
+            opacity: 0.1;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-text {
+            animation: fadeInRight 1s ease 0.3s both;
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .hero-text .label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 0.5s forwards, shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .hero-text h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary), var(--accent-primary));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 6s ease infinite, scale-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes scale-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
+        .hero-text .tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            background-size: 200% 200%;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+            transition: all 0.4s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-soft);
+            animation: buttonFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes buttonFloat {
+            0%, 100% { 
+                transform: translateY(0px);
+                box-shadow: 0 10px 30px var(--shadow-soft);
+            }
+            50% { 
+                transform: translateY(-5px);
+                box-shadow: 0 15px 40px rgba(192, 132, 252, 0.3);
+            }
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-tertiary));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .cta-button:hover::before {
+            opacity: 1;
+        }
+
+        .cta-button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .cta-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 50px rgba(192, 132, 252, 0.4);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 8rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--text-primary), var(--accent-primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Projects Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-subtle);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                        background-color 0.3s ease, 
+                        border-color 0.3s ease;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(192, 132, 252, 0.1);
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .project-card:hover::before {
+            opacity: 0.08;
+        }
+
+        .project-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            border-color: var(--accent-primary);
+            box-shadow: 
+                0 25px 70px rgba(192, 132, 252, 0.3),
+                0 10px 30px rgba(251, 113, 133, 0.2);
+        }
+
+        .project-card:hover .project-gallery {
+            transform: scale(1.05);
+        }
+
+        .project-gallery {
+            position: relative;
+            height: 350px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            transition: transform 0.5s ease;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover .project-image {
+            transform: scale(1.1);
+        }
+
+        .project-content {
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .project-hook {
+            color: var(--accent-secondary);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .project-role {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.1), rgba(251, 113, 133, 0.1));
+            border: 1.5px solid rgba(192, 132, 252, 0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-primary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tech-tag:hover {
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.2), rgba(251, 113, 133, 0.2));
+            border-color: var(--accent-secondary);
+            box-shadow: 0 5px 20px rgba(192, 132, 252, 0.3);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .project-metrics {
+            display: flex;
+            gap: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-subtle);
+            flex-wrap: wrap;
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-value {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        .about-text p {
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text strong {
+            color: var(--accent-primary);
+            font-weight: 700;
+        }
+
+        .about-highlights {
+            background: var(--bg-card);
+            border: 2px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(192, 132, 252, 0.1);
+        }
+
+        .highlight-item {
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .highlight-item:last-child {
+            border-bottom: none;
+        }
+
+        .highlight-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--bg-card);
+            border: 2px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 4px 20px rgba(192, 132, 252, 0.08);
+        }
+
+        .skill-category::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            opacity: 0;
+            border-radius: 20px;
+            transition: opacity 0.4s ease;
+        }
+
+        .skill-category:hover::before {
+            opacity: 0.08;
+        }
+
+        .skill-category:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                0 15px 40px rgba(192, 132, 252, 0.25),
+                0 5px 15px rgba(251, 113, 133, 0.15);
+        }
+
+        .skill-category-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-category-icon {
+            font-size: 1.5rem;
+        }
+
+        .skill-list {
+            list-style: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-list li {
+            padding: 0.6rem 0;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border-subtle);
+            font-size: 0.95rem;
+        }
+
+        .skill-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Achievements */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .achievement-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border-subtle);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(192, 132, 252, 0.08);
+        }
+
+        .achievement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary), var(--accent-tertiary));
+        }
+
+        .achievement-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: var(--accent-primary);
+            box-shadow: 
+                0 15px 40px rgba(192, 132, 252, 0.25),
+                0 5px 15px rgba(251, 113, 133, 0.15);
+        }
+
+        .achievement-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .achievement-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-desc {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border-subtle);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(192, 132, 252, 0.08);
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent-primary);
+            transform: translateX(12px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(192, 132, 252, 0.2);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-value {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+        }
+
+        .contact-value a {
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-value a:hover {
+            color: var(--accent-primary);
+        }
+
+        .contact-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .contact-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            padding: 1.2rem 2rem;
+            background: var(--bg-card);
+            border: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(192, 132, 252, 0.1);
+        }
+
+        .contact-button:hover {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(192, 132, 252, 0.35);
+            border-color: transparent;
+        }
+
+        .contact-button.primary {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            border: none;
+        }
+
+        .contact-button.primary:hover {
+            transform: translateY(-5px) scale(1.08);
+            box-shadow: 0 20px 45px rgba(192, 132, 252, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-secondary);
+            border-top: 2px solid var(--border-subtle);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-image {
+                margin: 0 auto;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            nav a {
+                font-size: 0.85rem;
+            }
+
+            .hero-text h1 {
+                font-size: 3rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            section {
+                padding: 5rem 1.5rem;
+            }
+
+            .skills-grid,
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Scroll animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation-delay: 0.1s; }
+        .stagger-2 { animation-delay: 0.2s; }
+        .stagger-3 { animation-delay: 0.3s; }
+        .stagger-4 { animation-delay: 0.4s; }
+
+        /* LinkedIn Note Styles */
+        .linkedin-note {
+            margin-top: 1.5rem;
+            padding: 1rem 1.5rem;
+            background: linear-gradient(135deg, rgba(192, 132, 252, 0.1), rgba(251, 113, 133, 0.1));
+            border-left: 4px solid var(--accent-primary);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            animation: fadeIn 1s ease 0.8s forwards, pulse-note 3s ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes pulse-note {
+            0%, 100% { 
+                box-shadow: 0 0 0 rgba(192, 132, 252, 0.2);
+            }
+            50% { 
+                box-shadow: 0 0 20px rgba(192, 132, 252, 0.3);
+            }
+        }
+
+        .linkedin-note strong {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        /* NextVerse Block Styles */
+        .nextverse-block {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: var(--bg-card);
+            border: 2px solid var(--border-subtle);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(192, 132, 252, 0.15);
+            animation: fadeIn 1s ease 1s forwards, float-block 6s ease-in-out infinite;
+            opacity: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nextverse-block::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(192, 132, 252, 0.1) 0%, transparent 70%);
+            animation: rotate-slow 20s linear infinite;
+        }
+
+        @keyframes rotate-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes float-block {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .nextverse-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nextverse-logo {
+            width: 120px;
+            height: 120px;
+            flex-shrink: 0;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid transparent;
+            background: linear-gradient(white, white) padding-box,
+                        linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) border-box;
+            box-shadow: 0 10px 30px rgba(192, 132, 252, 0.3);
+            animation: logo-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes logo-glow {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(192, 132, 252, 0.3);
+                transform: scale(1);
+            }
+            50% {
+                box-shadow: 0 15px 40px rgba(251, 113, 133, 0.4);
+                transform: scale(1.05);
+            }
+        }
+
+        .nextverse-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .nextverse-text h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .nextverse-text .nextverse-role {
+            color: var(--accent-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .nextverse-text p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .nextverse-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nextverse-logo {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">HB_</div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#certifications">Certifications</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+        <span class="theme-icon" id="themeIcon">🌙</span>
+    </button>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-image-container">
+                <div class="hero-image">
+                    <!-- Replace with your photo -->
+                    <img src="your-photo.jpg" alt="Hanin Bchir" id="heroPhoto">
+                </div>
+            </div>
+            <div class="hero-text">
+                <div class="label">Engineering · Innovation · Creative Tech</div>
+                <h1>Hanin Bchir</h1>
+                <p class="tagline">Co-founder of NextVerse | Engineering student crafting intelligent systems, immersive games, and digital experiences that bridge technology with creative storytelling.</p>
+                
+                <div class="linkedin-note">
+                    💼 <strong>Check my LinkedIn</strong> for detailed information about my accomplishments, hackathons, workshops, IEEE activities, and professional journey!
+                </div>
+
+                <a href="https://www.linkedin.com/in/haninbchir-engineer" target="_blank" class="cta-button">
+                    <span>Connect with me</span>
+                    <span>→</span>
+                </a>
+
+                <!-- NextVerse Block -->
+                <div class="nextverse-block">
+                    <div class="nextverse-content">
+                        <div class="nextverse-logo">
+                            <img src="nextverse-logo.png" alt="NextVerse Logo" id="nextverseLogo">
+                        </div>
+                        <div class="nextverse-text">
+                            <h3>NextVerse</h3>
+                            <div class="nextverse-role">Co-Founder & Technical Lead</div>
+                            <p>A student-founded initiative pushing beyond the classroom. We transform technology into our playground for creativity, innovation, and problem-solving through game development, software projects, and collaborative ventures.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="section-header fade-in-up">
+            <div class="section-label">Portfolio</div>
+            <h2 class="section-title">Featured Projects</h2>
+            <p class="section-subtitle">From award-winning games to AI-powered systems — explore my journey through code, creativity, and innovation.</p>
+        </div>
+
+        <div class="projects-grid">
+            <!-- Project 1: NEURO -->
+            <div class="project-card fade-in-up stagger-1">
+                <div class="project-gallery">
+                    <img src="neuro.jpg" alt="NEURO Game" class="project-image">
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">NEURO</h3>
+                            <p class="project-hook">Award-winning 2D game exploring hope through pixel-art storytelling</p>
+                        </div>
+                    </div>
+                    <p class="project-role">Role: Game Developer & Creative Lead | Team: NextVerse</p>
+                    <p class="project-description">
+                        A futuristic 2D digital game built from scratch using C and SDL 1.2, featuring immersive pixel-art environments, custom game mechanics, collision detection, and narrative-driven level design. Developed the complete game loop, character interactions, and cinematic storytelling elements while also producing the award-winning trailer.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">C</span>
+                        <span class="tech-tag">SDL 1.2</span>
+                        <span class="tech-tag">Pixel Art</span>
+                        <span class="tech-tag">Game Design</span>
+                        <span class="tech-tag">Videography</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">🥇 1st</div>
+                            <div class="metric-label">Best Game (GD3)</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">🥇 1st</div>
+                            <div class="metric-label">National Challenge</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">🏆 Best</div>
+                            <div class="metric-label">Trailer Award</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 2: NeoDrive -->
+            <div class="project-card fade-in-up stagger-2">
+                <div class="project-gallery">
+                    <img src="neodrive.jpg" alt="NeoDrive Smart Car" class="project-image">
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">NeoDrive</h3>
+                            <p class="project-hook">AI-powered smart car system with real-time driver monitoring</p>
+                        </div>
+                    </div>
+                    <p class="project-role">Role: AI & System Developer / Presentation Lead | Team: NextVerse</p>
+                    <p class="project-description">
+                        Developed a smart car prototype combining computer vision, driver monitoring, and predictive AI. The system uses external cameras for obstacle detection and internal monitoring for driver fatigue analysis. Built both the physical prototype and a web interface displaying real-time camera feeds, predictions, and safety alerts.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Computer Vision</span>
+                        <span class="tech-tag">YOLO Concept</span>
+                        <span class="tech-tag">LSTM</span>
+                        <span class="tech-tag">Web Dashboard</span>
+                        <span class="tech-tag">IoT</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">Exceptional</div>
+                            <div class="metric-label">Jury Feedback</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Advanced</div>
+                            <div class="metric-label">1st Year Project</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 3: TrashBot -->
+            <div class="project-card fade-in-up stagger-3">
+                <div class="project-gallery">
+                    <img src="trashbot.jpg" alt="TrashBot System" class="project-image">
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">TrashBot (Rascalni)</h3>
+                            <p class="project-hook">Gamified smart recycling system for educational environments</p>
+                        </div>
+                    </div>
+                    <p class="project-role">Role: Concept Designer (AI + IoT + Gamification) | Event: GREENOVATION</p>
+                    <p class="project-description">
+                        Designed an AI-powered recycling system for primary schools that identifies plastic waste, sorts items automatically, and recognizes students via webcam. The system gamifies eco-friendly behavior by rewarding students with digital points through a mobile interface, encouraging sustainable habits through technology and motivation.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">IoT</span>
+                        <span class="tech-tag">Camera Detection</span>
+                        <span class="tech-tag">Gamification</span>
+                        <span class="tech-tag">Mobile UX</span>
+                        <span class="tech-tag">Sustainability</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">Education</div>
+                            <div class="metric-label">Impact Focus</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Green Tech</div>
+                            <div class="metric-label">Innovation</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 4: Movie Recommender -->
+            <div class="project-card fade-in-up stagger-4">
+                <div class="project-gallery">
+                    <img src="movie-recommender.jpg" alt="Smart Movie Recommender" class="project-image">
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Smart Movie Recommender</h3>
+                            <p class="project-hook">Intelligent Python CLI that suggests films based on mood and preferences</p>
+                        </div>
+                    </div>
+                    <p class="project-role">Role: Python Developer</p>
+                    <p class="project-description">
+                        Built a console-based recommendation system that filters and ranks movies based on user mood, genre preferences, release dates, and ratings. The program uses custom filtering algorithms to prioritize results and provides direct links to trailers and information pages for each recommendation.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Algorithms</span>
+                        <span class="tech-tag">CLI Design</span>
+                        <span class="tech-tag">Data Structures</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">Smart</div>
+                            <div class="metric-label">Filtering Logic</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">User-First</div>
+                            <div class="metric-label">Design</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 5: YallaBuy -->
+            <div class="project-card fade-in-up stagger-1">
+                <div class="project-gallery">
+                    <img src="yallabuy.jpg" alt="YallaBuy E-Commerce Platform" class="project-image">
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">YallaBuy</h3>
+                            <p class="project-hook">E-commerce platform connecting Tunisian businesses with customers</p>
+                        </div>
+                    </div>
+                    <p class="project-role">Role: Full-Stack Developer & Project Owner</p>
+                    <p class="project-description">
+                        Building a comprehensive marketplace using MVC architecture with PHP, JavaScript, HTML, and CSS. The platform features user authentication, product management, business dashboards, cart systems, and filtering. Future development includes a mobile app using Flutter or React Native with push notifications and mobile payments.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">PHP</span>
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">MVC</span>
+                        <span class="tech-tag">Git</span>
+                        <span class="tech-tag">React Native (Planned)</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">In Progress</div>
+                            <div class="metric-label">Development</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Local Impact</div>
+                            <div class="metric-label">Mission</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 6: Social Media Freelancing -->
+            <div class="project-card fade-in-up stagger-2">
+                <div class="project-gallery">
+                    <img src="social-media.jpg" alt="Social Media Freelancing Projects" class="project-image">
+                </div>
+                <div class="project-content">
+                    <div class="project-header">
+                        <div>
+                            <h3 class="project-title">Social Media Freelancing</h3>
+                            <p class="project-hook">Full-service digital marketing driving measurable business growth</p>
+                        </div>
+                    </div>
+                    <p class="project-role">Role: Digital Media Manager | Clients: Chic Chicken, Lawyer Instagram Page, Others</p>
+                    <p class="project-description">
+                        Managed end-to-end digital strategies for local businesses including daily video production, poster design, content scheduling, automated messaging systems, and menu optimization. Delivered comprehensive brand building and community growth through strategic, conversion-focused content.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Video Editing</span>
+                        <span class="tech-tag">Canva</span>
+                        <span class="tech-tag">Social Strategy</span>
+                        <span class="tech-tag">Meta Business</span>
+                        <span class="tech-tag">Analytics</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">2x Sales</div>
+                            <div class="metric-label">in 1 Week</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">74K+</div>
+                            <div class="metric-label">IG Views</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">3.3K</div>
+                            <div class="metric-label">Total Followers</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications Section -->
+    <section id="certifications" style="padding: 6rem 2rem;">
+        <div class="section-header fade-in-up">
+            <div class="section-label">Credentials</div>
+            <h2 class="section-title">Certifications</h2>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-category fade-in-up stagger-1">
+                <h3 class="skill-category-title">
+                    <span class="skill-category-icon">🐍</span>
+                    GoMyCode - Python
+                </h3>
+                <ul class="skill-list">
+                    <li>Certified in Python Programming</li>
+                    <li>Capstone Project: Smart Movie Recommender System</li>
+                    <li>CLI applications & filtering algorithms</li>
+                </ul>
+            </div>
+
+            <div class="skill-category fade-in-up stagger-2">
+                <h3 class="skill-category-title">
+                    <span class="skill-category-icon">⚡</span>
+                    IEEE - C Programming
+                </h3>
+                <ul class="skill-list">
+                    <li>Certified in C Programming by IEEE</li>
+                    <li>Low-level programming & memory management</li>
+                    <li>Game development with SDL</li>
+                </ul>
+            </div>
+
+            <div class="skill-category fade-in-up stagger-3">
+                <h3 class="skill-category-title">
+                    <span class="skill-category-icon">⚡</span>
+                    IEEE - Python
+                </h3>
+                <ul class="skill-list">
+                    <li>Certified in Python by IEEE</li>
+                    <li>Data structures & algorithms</li>
+                    <li>Object-oriented programming</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-header fade-in-up">
+            <div class="section-label">Background</div>
+            <h2 class="section-title">About Me</h2>
+        </div>
+
+        <div class="about-content">
+            <div class="about-text fade-in-up stagger-1">
+                <p>
+                    I'm a <strong>passionate engineering preparatory student</strong> and <strong>co-founder of NextVerse</strong>, driven by the intersection of technology, creativity, and innovation. My journey spans game development, AI systems, digital marketing, and web development — always with a focus on building experiences that matter.
+                </p>
+                <p>
+                    <strong>NextVerse</strong> is a student-founded initiative created by two passionate IT students with a vision to go beyond the classroom. We see technology as more than a field of study — it's our playground for creativity, innovation, and problem-solving. From game development and software projects to hackathons and collaborations, we are documenting our journey as student founders shaping the digital future. At NextVerse, being students is not a limitation, it's our strength.
+                </p>
+                <p>
+                    Through hands-on projects and collaborative work, I've developed expertise in <strong>low-level programming with C and SDL</strong>, built intelligent systems using <strong>Python and computer vision concepts</strong>, and crafted compelling digital content that drives real business results. I hold certifications in <strong>Python from GoMyCode</strong> and <strong>C and Python from IEEE</strong>.
+                </p>
+                <p>
+                    As an <strong>active IEEE member</strong>, I contribute to workshops, hackathons, and community events, fostering knowledge sharing and hands-on learning. I've had the privilege of organizing bootcamps and leading technical initiatives that empower fellow students in engineering and technology.
+                </p>
+                <p>
+                    Beyond coding, I bring a creative edge through <strong>videography, trailer editing, and social media strategy</strong> — skills that helped me double a client's sales in one week and win national awards for game trailers.
+                </p>
+                <p>
+                    I'm currently seeking opportunities to collaborate on innovative projects where technology meets creativity, whether it's building intelligent systems, crafting immersive experiences, or driving digital transformation.
+                </p>
+            </div>
+
+            <div class="about-highlights fade-in-up stagger-2">
+                <div class="highlight-item">
+                    <h4 class="highlight-title">🚀 Co-founder of NextVerse</h4>
+                    <p class="highlight-desc">Student-founded initiative pushing beyond the classroom through game dev, software projects, and hackathons</p>
+                </div>
+                <div class="highlight-item">
+                    <h4 class="highlight-title">🎓 Academic Journey</h4>
+                    <p class="highlight-desc">Engineering preparatory student with strong foundation in mathematics, physics, and computer science</p>
+                </div>
+                <div class="highlight-item">
+                    <h4 class="highlight-title">📜 Certified Developer</h4>
+                    <p class="highlight-desc">Python certification from GoMyCode | C & Python certifications from IEEE</p>
+                </div>
+                <div class="highlight-item">
+                    <h4 class="highlight-title">⚡ IEEE Leadership</h4>
+                    <p class="highlight-desc">Active organizer of workshops, hackathons, and bootcamps — building communities and sharing knowledge</p>
+                </div>
+                <div class="highlight-item">
+                    <h4 class="highlight-title">💼 Freelance Experience</h4>
+                    <p class="highlight-desc">Delivered high-quality digital marketing and content creation services for multiple local businesses</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="section-header fade-in-up">
+            <div class="section-label">Expertise</div>
+            <h2 class="section-title">Skills & Tools</h2>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-category fade-in-up stagger-1">
+                <h3 class="skill-category-title">
+                    <span class="skill-category-icon">💻</span>
+                    Programming
+                </h3>
+                <ul class="skill-list">
+                    <li>C (SDL 1.2, 2D game programming)</li>
+                    <li>Python (CLI apps, filtering algorithms)</li>
+                    <li>PHP, JavaScript, HTML, CSS</li>
+                    <li>Git & GitHub version control</li>
+                    <li>MVC Architecture</li>
+                </ul>
+            </div>
+
+            <div class="skill-category fade-in-up stagger-2">
+                <h3 class="skill-category-title">
+                    <span class="skill-category-icon">🎮</span>
+                    Game Development
+                </h3>
+                <ul class="skill-list">
+                    <li>SDL 1.2 (rendering, sprites, animations)</li>
+                    <li>Game loop & collision detection</li>
+                    <li>Pixel-art design & integration</li>
+                    <li>Narrative design & storytelling</li>
+                    <li>Level progression systems</li>
+                </ul>
+            </div>
+
+            <div class="skill-category fade-in-up stagger-3">
+                <h3 class="skill-category-title">
+                    <span class="skill-category-icon">🤖</span>
+                    AI & IoT Concepts
+                </h3>
+                <ul class="skill-list">
+                    <li>Computer vision fundamentals</li>
+                    <li>OpenCV / simple camera logic</li>
+                    <li>YOLO & LSTM concepts</li>
+                    <li>IoT system thinking</li>
+                    <li>Gamification design</li>
+                </ul>
+            </div>
+
+            <div class="skill-category fade-in-up stagger-4">
+                <h3 class="skill-category-title">
+                    <span class="skill-category-icon">🎥</span>
+                    Creative Production
+                </h3>
+                <ul class="skill-list">
+                    <li>Videography & trailer editing</li>
+                    <li>Short-form video content</li>
+                    <li>Poster & brand design (Canva)</li>
+                    <li>Social media content strategy</li>
+                    <li>Storytelling & visual narrative</li>
+                </ul>
+            </div>
+
+            <div class="skill-category fade-in-up stagger-1">
+                <h3 class="skill-category-title">
+                    <span class="skill-category-icon">📱</span>
+                    Digital Marketing
+                </h3>
+                <ul class="skill-list">
+                    <li>Social media management</li>
+                    <li>Meta Business Suite</li>
+                    <li>Content publishing strategy</li>
+                    <li>Community growth & engagement</li>
+                    <li>Analytics & conversion optimization</li>
+                </ul>
+            </div>
+
+            <div class="skill-category fade-in-up stagger-2">
+                <h3 class="skill-category-title">
+                    <span class="skill-category-icon">🛠️</span>
+                    Tools & Software
+                </h3>
+                <ul class="skill-list">
+                    <li>Canva (design & branding)</li>
+                    <li>Video editing tools</li>
+                    <li>Git & GitHub</li>
+                    <li>VS Code / Development IDEs</li>
+                    <li>Database management</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements">
+        <div class="section-header fade-in-up">
+            <div class="section-label">Recognition</div>
+            <h2 class="section-title">Achievements & Awards</h2>
+        </div>
+
+        <div class="achievements-grid">
+            <div class="achievement-card fade-in-up stagger-1">
+                <div class="achievement-icon">🥇</div>
+                <h3 class="achievement-title">1st Place - Best Video Game</h3>
+                <p class="achievement-desc">NEURO Game at GD3 Monastir Competition</p>
+            </div>
+
+            <div class="achievement-card fade-in-up stagger-2">
+                <div class="achievement-icon">🥈</div>
+                <h3 class="achievement-title">2nd Place - Best Overall Project</h3>
+                <p class="achievement-desc">GD3 Monastir Regional Event</p>
+            </div>
+
+            <div class="achievement-card fade-in-up stagger-3">
+                <div class="achievement-icon">🥇</div>
+                <h3 class="achievement-title">1st Place - National Challenge</h3>
+                <p class="achievement-desc">National Game Development Competition (Tunis)</p>
+            </div>
+
+            <div class="achievement-card fade-in-up stagger-4">
+                <div class="achievement-icon">🏆</div>
+                <h3 class="achievement-title">Best Video Game Trailer</h3>
+                <p class="achievement-desc">GD3 Creative Excellence Award</p>
+            </div>
+
+            <div class="achievement-card fade-in-up stagger-1">
+                <div class="achievement-icon">⚡</div>
+                <h3 class="achievement-title">IEEE Leadership</h3>
+                <p class="achievement-desc">Organized workshops, hackathons, and bootcamps</p>
+            </div>
+
+            <div class="achievement-card fade-in-up stagger-2">
+                <div class="achievement-icon">📈</div>
+                <h3 class="achievement-title">Client Success</h3>
+                <p class="achievement-desc">Doubled sales in 1 week through digital strategy</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-header fade-in-up">
+            <div class="section-label">Get In Touch</div>
+            <h2 class="section-title">Let's Connect</h2>
+            <p class="section-subtitle">Open to collaborations, freelance projects, and innovative opportunities in technology and creative development.</p>
+        </div>
+
+        <div class="contact-content">
+            <div class="contact-info fade-in-up stagger-1">
+                <div class="contact-item">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value"><a href="/cdn-cgi/l/email-protection#bddfcedfded5d4cfd5dcd3d4d3d3fddad0dcd4d193ded2d0"><span class="__cf_email__" data-cfemail="791b0a1b1a11100b111817101717391e14181015571a1614">[email&#160;protected]</span></a></div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-details">
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value"><a href="tel:+21620081727">+216 20 081 727</a></div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">💻</div>
+                    <div class="contact-details">
+                        <div class="contact-label">GitHub</div>
+                        <div class="contact-value"><a href="https://github.com/hanin-bchir" target="_blank">hanin-bchir</a></div>
+                    </div>
+                </div>
+
+                <div class="contact-item">
+                    <div class="contact-icon">🔗</div>
+                    <div class="contact-details">
+                        <div class="contact-label">LinkedIn</div>
+                        <div class="contact-value"><a href="https://www.linkedin.com/in/haninbchir-engineer" target="_blank">haninbchir-engineer</a></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contact-actions fade-in-up stagger-2">
+                <a href="https://github.com/hanin-bchir/cv-hanin-bchir" target="_blank" class="contact-button primary">
+                    <span>📄</span>
+                    <span>View CV on GitHub</span>
+                </a>
+                <a href="https://www.linkedin.com/in/haninbchir-engineer" target="_blank" class="contact-button">
+                    <span>💼</span>
+                    <span>LinkedIn Profile</span>
+                </a>
+                <a href="https://github.com/hanin-bchir" target="_blank" class="contact-button">
+                    <span>💻</span>
+                    <span>GitHub Portfolio</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p class="footer-text">Designed & Built by Hanin Bchir © 2024</p>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/haninbchir-engineer" target="_blank">LinkedIn</a>
+                <a href="https://github.com/hanin-bchir" target="_blank">GitHub</a>
+                <a href="mailto:bsbchirhaninn@gmail.com">Email</a>
+                <a href="#home">Back to Top ↑</a>
+            </div>
+        </div>
+    </footer>
+
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or default to light mode
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        html.setAttribute('data-theme', currentTheme);
+        updateThemeIcon(currentTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+            
+            // Add a subtle animation effect
+            themeToggle.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                themeToggle.style.transform = 'scale(1)';
+            }, 200);
+        });
+
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.textContent = '☀️';
+            } else {
+                themeIcon.textContent = '🌙';
+            }
+        }
+
+        // Gallery functionality
+        document.querySelectorAll('.project-gallery').forEach(gallery => {
+            const track = gallery.querySelector('.gallery-track');
+            const dots = gallery.querySelectorAll('.gallery-dot');
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const index = parseInt(dot.dataset.index);
+                    
+                    // Update track position
+                    track.style.transform = `translateX(-${index * 100}%)`;
+                    
+                    // Update active dot
+                    dots.forEach(d => d.classList.remove('active'));
+                    dot.classList.add('active');
+                });
+            });
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                const navHeight = document.querySelector('nav').offsetHeight;
+                const targetPosition = target.offsetTop - navHeight;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Placeholder for images - you can remove this after adding real images
+        document.querySelectorAll('.project-image').forEach(img => {
+            img.onerror = function() {
+                this.style.display = 'none';
+                const placeholder = document.createElement('div');
+                placeholder.style.cssText = 'display:flex;align-items:center;justify-content:center;height:100%;background:linear-gradient(135deg, rgba(192, 132, 252, 0.1), rgba(251, 113, 133, 0.1));color:var(--text-muted);font-family:JetBrains Mono,monospace;font-size:0.9rem;';
+                placeholder.textContent = 'Project Image Placeholder';
+                this.parentElement.appendChild(placeholder);
+            };
+        });
+
+        document.getElementById('heroPhoto').onerror = function() {
+            this.style.display = 'none';
+            const placeholder = document.createElement('div');
+            placeholder.style.cssText = 'display:flex;align-items:center;justify-content:center;height:100%;background:linear-gradient(135deg, rgba(192, 132, 252, 0.15), rgba(251, 113, 133, 0.15));color:var(--text-muted);font-family:JetBrains Mono,monospace;font-size:0.9rem;';
+            placeholder.textContent = 'Profile Photo Placeholder';
+            this.parentElement.appendChild(placeholder);
+        };
+
+        document.getElementById('nextverseLogo').onerror = function() {
+            this.style.display = 'none';
+            const placeholder = document.createElement('div');
+            placeholder.style.cssText = 'display:flex;align-items:center;justify-content:center;height:100%;background:linear-gradient(135deg, rgba(192, 132, 252, 0.2), rgba(251, 113, 133, 0.2));color:var(--accent-primary);font-family:Orbitron,sans-serif;font-size:1.5rem;font-weight:900;';
+            placeholder.textContent = 'NV';
+            this.parentElement.appendChild(placeholder);
+        };
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroImage = document.querySelector('.hero-image');
+            if (heroImage && scrolled < window.innerHeight) {
+                heroImage.style.transform = `translateY(${scrolled * 0.2}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
